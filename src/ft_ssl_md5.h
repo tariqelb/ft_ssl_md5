@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:10:06 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/17 05:05:34 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/18 02:57:16 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define RANDOM 1 //global
-//# define RANDOM 0 //before file
+//# define RANDOM 1 //global
+# define RANDOM 0 //before file
 
 typedef struct s_opt
 {
@@ -112,5 +112,10 @@ int     ft_encript_file(int i, t_data *data);
 //File : ft_option_string_flag.c
 int     ft_is_one_global_option(int i, t_data *data);
 int     ft_check_is_string_flag(int i, t_data *data);
+
+//File : ft_display_str_prefix.c
+int     ft_display_str_prefix(int i, t_data *data);
+//File : ft_display_file_prefix.c
+int     ft_display_file_prefix(int i, t_data *data);
 
 #endif

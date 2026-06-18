@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 04:41:52 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/17 04:55:49 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/18 02:56:18 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ int     ft_encript_file(int i, t_data *data)
 	if (fd < 3)
 	{
 		ft_display_file_error(data, i);
+		return (1);
+	}
+	if (data->op.r)
+	{
+		//ft_file_hash();
+		if (data->op.q == 0)
+			ft_display_file_prefix(i, data);
+	}
+	else
+	{
+		if (data->op.q == 0)
+			ft_display_file_prefix(i, data);
+		//ft_file_hash();
 	}
 	close(fd);
 	return (0);

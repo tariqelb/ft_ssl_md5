@@ -6,7 +6,7 @@
 #    By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/12 22:54:33 by tel-bouh          #+#    #+#              #
-#    Updated: 2026/06/17 04:46:49 by tel-bouh         ###   ########.fr        #
+#    Updated: 2026/06/18 02:38:24 by tel-bouh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS=	./ft_parse_command_errors.c \
 	./ft_option_str_flag.c \
 	./ft_enrypt_string.c \
 	./ft_enrypt_file.c \
+	./ft_display_str_prefix.c \
+	./ft_display_file_prefix.c \
 	./ft_ssl_md5.c
 
 FLAGS= -Werror -Wextra -Wall
