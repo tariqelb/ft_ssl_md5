@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:40:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/15 00:28:22 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/20 18:57:35 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_parse_command_errors(int ac, char **av, t_data *data)
 {
-	printf("ft_parse_commad_errors %d %s\n", ac, av[0]);
+	//printf("ft_parse_commad_errors %d %s\n", ac, av[0]);
 	if (ac == 1)
 	{
 		ft_putstr_std("usage: ft_ssl command [flags] [file/string]\n", 2);

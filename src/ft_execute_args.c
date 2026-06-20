@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 00:32:56 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/18 02:54:04 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/20 23:44:56 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_display_hash(t_data *data)
 
 void	ft_execute_stdin(t_data *data)
 {
-	if (data->op.r == 0)
+	printf("-----------ft_execute_stdin------------------\n");
+	//if (data->op.r == 0)
 		ft_display_prefix(data);
 	ft_display_hash(data);
 }
@@ -31,7 +32,9 @@ int	ft_parse_arg_and_exec(int i, t_data *data)
 	//printf("before :opt (%s) i {%d} random : [%d] str_muted (%d) s_flag {%d}\n", data->av[i], i, RANDOM, data->str_muted, data->s_flag_on);
 	if (RANDOM && ft_is_one_global_option(i, data))
 		return (0);
-	else if (RANDOM == 0 && ft_is_one_global_option(i, data) && i < data->str_muted)
+	else if (RANDOM == 0 && ft_is_one_global_option(i, data) && data->str_muted != -1 && i < data->str_muted)
+		return (0);
+	else if (RANDOM == 0 && ft_is_one_global_option(i, data) && data->str_muted == -1)
 		return (0);
 	else if (ft_check_is_string_flag(i, data))
 	{
@@ -53,11 +56,11 @@ int	ft_parse_arg_and_exec(int i, t_data *data)
 
 int	ft_execute_args(t_data *data)
 {
-	printf("ft_execute_args\n");
+	//printf("ft_execute_args\n");
 	int	i;
 
 	i = 2;
-	if (data->op.p)
+	if (data->args && data->args[0].type == 0)
 		ft_execute_stdin(data);
 	while (i < data->ac)
 	{

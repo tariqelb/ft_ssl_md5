@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/13 21:04:39 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/15 00:12:26 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:48:31 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static int	ft_exit(char *str, t_data *data)
 {
 	size_t	i;
 
-	i = ft_strlen(str) - 6;
-	if (ft_strcmp(&str[i], "\nexit\n") == 0)
+	i = ft_strlen(str) - 1;
+	if (ft_strcmp(&str[i], "\n") == 0)
 	{
 		data->args[0].str[i] = 0;
 		return (1);

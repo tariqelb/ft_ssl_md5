@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:13:12 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/17 00:19:10 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/20 20:05:41 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_initialize_data(t_data *data, int ac, char **av)
 	data->op.r = 0;
 	data->op.q = 0;
 	data->op.p = 0;
+	data->op.s = 0;
 	data->n_args = 0;
 	data->str_muted = -1;
 	data->s_flag_on = 0;
@@ -44,16 +45,16 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	ft_initialize_data(&data, ac, av);
-	printf("------------------------------------------\n");
+	//printf("------------------------------------------\n");
 	if (ft_parse_command_errors(ac, av, &data))
 		return (1);
-	printf("------------------------------------------\n");
+	//printf("------------------------------------------\n");
 	if (ft_parse_and_get_option(ac, av, &data))
 		return (1);
-	printf("------------------------------------------\n");
-	if (data.op.p && ft_read_stdin(&data))
+	//printf("------------------------------------------\n");
+	if ((data.op.p || (data.str_muted == -1 && data.op.s == 0)) && ft_read_stdin(&data))
 		return (0);
-	printf("------------------------------------------\n");
+	//printf("------------------------------------------\n");
 	ft_execute_args(&data);
 	ft_display_struct(&data);
 	return (0);

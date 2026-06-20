@@ -6,11 +6,11 @@
 #    By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/12 22:54:33 by tel-bouh          #+#    #+#              #
-#    Updated: 2026/06/18 02:38:24 by tel-bouh         ###   ########.fr        #
+#    Updated: 2026/06/20 23:24:29 by tel-bouh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME= ft_ssl.out
+NAME= ft_ssl
 
 SRCS=	./ft_parse_command_errors.c \
 	./ft_printf_utils.c \

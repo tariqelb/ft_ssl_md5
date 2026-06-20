@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 04:30:04 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/18 02:50:59 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/20 23:53:56 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,22 @@ int     ft_check_isit_followed_by_string(t_data *data, int i)
                 ft_display_string_error(data, i);
 		return (1);
         }
-	if (i > data->str_muted)
-		data->s_flag_on = 0;
 	return (0);
+}
+
+void	ft_hash_str(int f)
+{
+	ft_putstr_std("hash_str", 1);
+	if (f)
+		ft_putstr_std("\n", 1);
 }
 
 int     ft_encript_string(int i, t_data *data)
 {
-        printf("ft_encript_string [%s]\n", data->av[i]);
+        printf("----------------------ft_encript_string [%s]----------------------\n", data->av[i]);
 	if (data->op.r)
 	{
-		//ft_hash_str();
+		ft_hash_str(data->op.q);
 		if (data->op.q == 0)
 			ft_display_str_prefix(i, data);
 	}
@@ -49,7 +54,7 @@ int     ft_encript_string(int i, t_data *data)
 	{
 		if (data->op.q == 0)
 			ft_display_str_prefix(i, data);
-		//ft_hash_str();
+		ft_hash_str(1);
 	}
         data->s_flag_on = 0;
         return (0);

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 02:22:25 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/18 02:34:37 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/20 23:39:16 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	ft_display_str_prefix(int i, t_data *data)
 			ft_putstr_std("SHA256 ", 1);
 		ft_putstr_std("(\"", 1);
 		ft_putstr_std(data->av[i], 1);
-		ft_putstr_std("\") = \n", 1);
+		ft_putstr_std("\") = ", 1);
 	}
 	else
 	{
-		ft_putstr_std("\"", 1);
+		ft_putstr_std(" \"", 1);
 		ft_putstr_std(data->av[i], 1);
 		ft_putstr_std("\"\n", 1);
 	}		

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 20:06:17 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/16 23:56:00 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/20 20:06:21 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 
 static void     ft_is_an_option(char *av, t_data *data)
 {
-	printf("ft_is_an_option \n");
+	//printf("ft_is_an_option \n");
         if (ft_strcmp(av, "-r") == 0)
                 data->op.r = 1;
         else if (ft_strcmp(av, "-q") == 0)
                 data->op.q = 1;
         else if (ft_strcmp(av, "-p") == 0)
                 data->op.p = 1;
+        else if (ft_strcmp(av, "-s") == 0)
+                data->op.s = 1;
         return ;
 }
 
 int	ft_parse_and_get_option(int ac, char **av, t_data *data)
 {
-	printf("ft_parse_and_get_option\n");
+	//printf("ft_parse_and_get_option\n");
 	int	i;
 	int	fd;
 
@@ -40,7 +42,7 @@ int	ft_parse_and_get_option(int ac, char **av, t_data *data)
 		{
 			close(fd);
 			data->str_muted = i;
-			printf("file found %s %d\n", av[i], data->str_muted);
+		//	printf("file found %s %d\n", av[i], data->str_muted);
 		}
 		//printf("parse opt : %d %d %s\n", i, data->str_muted, av[i]);
 		if (RANDOM)

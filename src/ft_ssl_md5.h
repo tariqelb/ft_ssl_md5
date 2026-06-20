@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:10:06 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/18 02:57:16 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/20 20:05:54 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_opt
 	short	r;
 	short	q;
 	short	p;
+	short	s;
 }		t_opt;
 
 typedef struct s_cmd
