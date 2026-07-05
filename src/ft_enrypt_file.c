@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 04:41:52 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/20 23:54:32 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/27 01:19:32 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,19 @@ int	ft_display_file_error(t_data *data, int i)
 	return (1);
 }
 
-void    ft_hash_file(int f) 
-{ 
-        ft_putstr_std("hash_file",1); 
-        if (f) 
-                ft_putstr_std("\n", 1); 
+void    ft_hash_file(int newline, int i, t_data *data)
+{
+	t_hash_md5      md5;
+
+	if (ft_initialize_md5_file(&md5, data, i))
+		return ;//malloc error
+	ft_process_blocks(&md5);
+	ft_print_word(md5.a);
+	ft_print_word(md5.b);
+	ft_print_word(md5.c);
+	ft_print_word(md5.d);
+	if (newline)
+		ft_putstr_std("\n", 1); 
 }
 
 
@@ -45,7 +53,7 @@ int     ft_encript_file(int i, t_data *data)
 	}
 	if (data->op.r)
 	{
-		ft_hash_file(data->op.q);
+		ft_hash_file(data->op.q, i, data);
 		if (data->op.q == 0)
 			ft_display_file_prefix(i, data);
 	}
@@ -53,7 +61,7 @@ int     ft_encript_file(int i, t_data *data)
 	{
 		if (data->op.q == 0)
 			ft_display_file_prefix(i, data);
-		ft_hash_file(1);
+		ft_hash_file(1, i, data);
 	}
 	close(fd);
 	return (0);

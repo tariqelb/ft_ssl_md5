@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 00:32:56 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/20 23:44:56 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/27 02:06:46 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 void	ft_display_hash(t_data *data)
 {
-	ft_putstr_std("hash\n", 1);
-	if (data->op.r == 0)
+	t_hash_md5      md5;
+
+	if (ft_initialize_md5_stdin(&md5, data))
+		return ;//malloc error
+	ft_process_blocks(&md5);
+	ft_print_word(md5.a);
+	ft_print_word(md5.b);
+	ft_print_word(md5.c);
+	ft_print_word(md5.d);
+	//if (data->op.r == 0)
 		ft_putstr_std("\n", 1);
 }
 

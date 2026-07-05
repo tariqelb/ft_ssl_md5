@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 04:30:04 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/20 23:53:56 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/27 02:03:52 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,18 @@ int     ft_check_isit_followed_by_string(t_data *data, int i)
 	return (0);
 }
 
-void	ft_hash_str(int f)
+void	ft_hash_str(int newline, int i, t_data *data)
 {
-	ft_putstr_std("hash_str", 1);
-	if (f)
+	t_hash_md5	md5;
+
+	if (ft_initialize_md5_args(&md5, data, i))
+		return ;//malloc error
+	ft_process_blocks(&md5);
+	ft_print_word(md5.a);
+	ft_print_word(md5.b);
+	ft_print_word(md5.c);
+	ft_print_word(md5.d);
+	if (newline)
 		ft_putstr_std("\n", 1);
 }
 
@@ -46,7 +54,7 @@ int     ft_encript_string(int i, t_data *data)
         printf("----------------------ft_encript_string [%s]----------------------\n", data->av[i]);
 	if (data->op.r)
 	{
-		ft_hash_str(data->op.q);
+		ft_hash_str(data->op.q, i, data);
 		if (data->op.q == 0)
 			ft_display_str_prefix(i, data);
 	}
@@ -54,7 +62,7 @@ int     ft_encript_string(int i, t_data *data)
 	{
 		if (data->op.q == 0)
 			ft_display_str_prefix(i, data);
-		ft_hash_str(1);
+		ft_hash_str(1, i, data);
 	}
         data->s_flag_on = 0;
         return (0);

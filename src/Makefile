@@ -6,7 +6,7 @@
 #    By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/12 22:54:33 by tel-bouh          #+#    #+#              #
-#    Updated: 2026/06/20 23:24:29 by tel-bouh         ###   ########.fr        #
+#    Updated: 2026/06/26 01:49:17 by tel-bouh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,18 @@ SRCS=	./ft_parse_command_errors.c \
 	./ft_enrypt_file.c \
 	./ft_display_str_prefix.c \
 	./ft_display_file_prefix.c \
+	./ft_initialize_md5.c \
+	./ft_process_blocks.c \
+	./ft_printf_md5.c \
+	./ft_init_s_and_k.c \
+	./ft_initialize_md5_stdin.c \
+	./ft_initialize_md5_file.c \
 	./ft_ssl_md5.c
 
 FLAGS= -Werror -Wextra -Wall
 
 all:
-	gcc $(FLAGS) -o ${NAME} ${SRCS}
+	gcc $(FLAGS) -o ${NAME} ${SRCS} -lm
 
 fclean:
 	/bin/rm -rf ${NAME}

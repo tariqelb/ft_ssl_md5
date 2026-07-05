@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/13 21:04:39 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/20 19:48:31 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/26 02:24:11 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ static int	ft_exit(char *str, t_data *data)
 {
 	size_t	i;
 
+	(void) data;
 	i = ft_strlen(str) - 1;
 	if (ft_strcmp(&str[i], "\n") == 0)
 	{
-		data->args[0].str[i] = 0;
+		//data->args[0].str[i] = '\n';
+		//data->args[0].str[i] = 0;
 		return (1);
 	}
 	return (0);
@@ -111,7 +113,9 @@ int     ft_read_stdin(t_data *data)
 		if (malloc_err == 1)
 			return (1);
 		if (ret)
+		{
 			return (0);
+		}
 		rd = read(0 , temp, 99);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 16:13:19 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/12 22:59:14 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/27 01:49:24 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ char	*ft_strcpy(char *dest, const char *src)
 
 	i = 0;
 	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strncpy(char *dest, const char *src, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size && src[i])
 	{
 		dest[i] = src[i];
 		i++;
