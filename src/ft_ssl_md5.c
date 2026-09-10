@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:13:12 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/26 01:23:35 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/08 03:04:54 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_display_struct(t_data *data)
 {
 	printf("\n-----------------------------------------\n\n");
 	printf("flags : -q %d -r %d -p %d\n", data->op.q, data->op.r, data->op.p);
-	printf("nbr of args %d, is str muted : %d\n", data->n_args, data->str_muted);	
+	printf("n args %d, str muted : %d\n", data->n_args, data->str_muted);
 	if (data->op.p && data->args)
 		printf("std in : {%s}\n", data->args->str);
 	printf("command is : %d\n", data->cmd.cmd_flg);
@@ -45,16 +45,13 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	ft_initialize_data(&data, ac, av);
-	//printf("------------------------------------------\n");
 	if (ft_parse_command_errors(ac, av, &data))
 		return (1);
-	//printf("------------------------------------------\n");
 	if (ft_parse_and_get_option(ac, av, &data))
 		return (1);
-	//printf("------------------------------------------\n");
-	if ((data.op.p || (data.str_muted == -1 && data.op.s == 0)) && ft_read_stdin(&data))
+	if ((data.op.p || (data.str_muted == -1 && data.op.s == 0))
+		&& ft_read_stdin(&data))
 		return (0);
-	//printf("------------------------------------------\n");
 	ft_execute_args(&data);
 	//ft_display_struct(&data);
 	return (0);

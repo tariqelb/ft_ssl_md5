@@ -6,47 +6,20 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 00:46:52 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/26 00:56:49 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/09 15:51:57 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ssl_md5.h"
 
-static void fg_round1(uint32_t *f, uint32_t *g,
-                      uint32_t b, uint32_t c, uint32_t d, size_t i)
-{
-    *f = (b & c) | (~b & d);
-    *g = i;
-}
-
-static void fg_round2(uint32_t *f, uint32_t *g,
-                      uint32_t b, uint32_t c, uint32_t d, size_t i)
-{
-    *f = (d & b) | (~d & c);
-    *g = (5 * i + 1) % 16;
-}
-
-static void fg_round3(uint32_t *f, uint32_t *g,
-                      uint32_t b, uint32_t c, uint32_t d, size_t i)
-{
-    *f = b ^ c ^ d;
-    *g = (3 * i + 5) % 16;
-}
-
-static void fg_round4(uint32_t *f, uint32_t *g,
-                      uint32_t b, uint32_t c, uint32_t d, size_t i)
-{
-    *f = c ^ (b | ~d);
-    *g = (7 * i) % 16;
-}
-
-
+/*
 static t_fg_func g_fg_table[4] = {
-    fg_round1,
-    fg_round2,
-    fg_round3,
-    fg_round4
+    ft_fg_round1,
+    ft_fg_round2,
+    ft_fg_round3,
+    ft_fg_round4
 };
+*/
 
 static uint32_t	ft_left_rotate(uint32_t x, uint32_t c)
 {
@@ -71,35 +44,36 @@ static void	ft_load_block(uint32_t M[16], uint8_t *block)
 
 static void	ft_process_block(t_hash_md5 *md5, uint32_t M[16])
 {
-	uint32_t	a;
-	uint32_t	b;
-	uint32_t	c;
-	uint32_t	d;
+	t_md5_blocks	blks;
 	size_t		round;
 
-	a = md5->a;
-	b = md5->b;
-	c = md5->c;
-	d = md5->d;
+	ft_init_fg_table(md5);
+	blks.a = md5->a;
+	blks.b = md5->b;
+	blks.c = md5->c;
+	blks.d = md5->d;
 	md5->i = 0;
 	while (md5->i < 64)
 	{
-		round = md5->i >> 4; // 0,1,2,3
-
-		g_fg_table[round](&md5->f, &md5->g, b, c, d, md5->i);	
-		//ft_compute_fg(&md5->f, &md5->g, b, c, d, md5->i);
-		md5->temp = d;
-		md5->x = a + md5->f + md5->k[md5->i] + M[md5->g];
-		d = c;
-		c = b;
-		b = b + ft_left_rotate(md5->x, md5->s[md5->i]);
-		a = md5->temp;
+		//g_fg_table[round](&md5->f, &md5->g,
+		//	blks.b, blks.c, blks.d, md5->i);
+		//g_fg_table[round](&md5->f, &md5->g, &blks, md5->i);
+		round = md5->i >> 4;
+		md5->fg_table[round](&md5->f, &md5->g, &blks, md5->i);
+		md5->temp = blks.d;
+		md5->x = blks.a + md5->f
+			+ md5->k[md5->i] + M[md5->g];
+		blks.d = blks.c;
+		blks.c = blks.b;
+		blks.b = blks.b
+			+ ft_left_rotate(md5->x, md5->s[md5->i]);
+		blks.a = md5->temp;
 		md5->i++;
 	}
-	md5->a += a;
-	md5->b += b;
-	md5->c += c;
-	md5->d += d;
+	md5->a += blks.a;
+	md5->b += blks.b;
+	md5->c += blks.c;
+	md5->d += blks.d;
 }
 
 int	ft_process_blocks(t_hash_md5 *md5)
@@ -116,7 +90,6 @@ int	ft_process_blocks(t_hash_md5 *md5)
 	}
 	return (0);
 }
-
 
 /*
 static uint32_t left_rotate(uint32_t x, uint32_t c)

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_display_file_prefix.c                           :+:      :+:    :+:   */
+/*   ft_build_message_shedule.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/18 02:35:49 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/07 18:18:29 by tel-bouh         ###   ########.fr       */
+/*   Created: 2026/07/09 18:25:30 by tel-bouh          #+#    #+#             */
+/*   Updated: 2026/09/07 18:16:21 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ssl_md5.h"
 
-int	ft_display_file_prefix(int i, t_data *data)
+void	ft_build_w(uint32_t w[64], uint8_t *block)
 {
-	if (data->op.r == 0)
+	int	i;
+
+	i = 0;
+	while (i < 16)
 	{
-		if (data->cmd.cmd_flg == 1)
-			ft_putstr_std("MD5 ", 1);
-		else
-			ft_putstr_std("SHA256 ", 1);
-		ft_putstr_std("(", 1);
-		ft_putstr_std(data->av[i], 1);
-		ft_putstr_std(") = ", 1);
+		w[i] = ((uint32_t)block[i * 4] << 24)
+			| ((uint32_t)block[i * 4 + 1] << 16)
+			| ((uint32_t)block[i * 4 + 2] << 8)
+			| ((uint32_t)block[i * 4 + 3]);
+		i++;
 	}
-	else
+	while (i < 64)
 	{
-		ft_putstr_std(" ", 1);
-		ft_putstr_std(data->av[i], 1);
-		ft_putstr_std("\n", 1);
+		w[i] = sigma1(w[i - 2])
+			+ w[i - 7]
+			+ sigma0(w[i - 15])
+			+ w[i - 16];
+		i++;
 	}
-	return (0);
 }

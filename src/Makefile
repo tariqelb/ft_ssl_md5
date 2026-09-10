@@ -6,7 +6,7 @@
 #    By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/12 22:54:33 by tel-bouh          #+#    #+#              #
-#    Updated: 2026/06/26 01:49:17 by tel-bouh         ###   ########.fr        #
+#    Updated: 2026/09/09 15:13:04 by tel-bouh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS=	./ft_parse_command_errors.c \
 	./ft_read_stdin.c \
 	./ft_parse_and_get_option.c \
 	./ft_execute_args.c \
+	./ft_fg_round.c \
 	./ft_display_prefix.c \
 	./ft_option_str_flag.c \
 	./ft_enrypt_string.c \
@@ -31,6 +32,15 @@ SRCS=	./ft_parse_command_errors.c \
 	./ft_init_s_and_k.c \
 	./ft_initialize_md5_stdin.c \
 	./ft_initialize_md5_file.c \
+	./ft_allocate_block_memory_sha.c \
+	./ft_initialize_sha256_stdin.c \
+	./ft_display_hash_sha256.c \
+	./ft_initialize_sha256_file.c \
+	./ft_initialize_sha_string.c \
+	./ft_init_k_sha256.c \
+	./ft_build_message_shedule.c \
+	./ft_process_blocks_sha256.c \
+	./ft_print_sha256.c \
 	./ft_ssl_md5.c
 
 FLAGS= -Werror -Wextra -Wall

@@ -6,23 +6,11 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 16:13:19 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/27 01:49:24 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/08 03:07:33 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ssl_md5.h"
-
-size_t	ft_strlen(char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 char	*ft_strdup(char *s)
 {

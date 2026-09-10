@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 04:41:52 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/27 01:19:32 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/09 21:04:28 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,48 @@ int	ft_display_file_error(t_data *data, int i)
 	return (1);
 }
 
-void    ft_hash_file(int newline, int i, t_data *data)
+void	ft_hash_file(int newline, int i, t_data *data)
 {
-	t_hash_md5      md5;
+	t_hash_md5	md5;
 
+	//malloc error
 	if (ft_initialize_md5_file(&md5, data, i))
-		return ;//malloc error
+		return ;
 	ft_process_blocks(&md5);
 	ft_print_word(md5.a);
 	ft_print_word(md5.b);
 	ft_print_word(md5.c);
 	ft_print_word(md5.d);
 	if (newline)
-		ft_putstr_std("\n", 1); 
+		ft_putstr_std("\n", 1);
 }
 
-
-int     ft_encript_file(int i, t_data *data)
+void	ft_hash_file_sha(int newline, int i, t_data *data)
 {
-	printf("----------------------ft_encript_file [%s]------------------------\n", data->av[i]);
+	t_hash_sha256	sha;
+
+	if (ft_initialize_sha_file(data, &sha, i))
+		return ;
+	ft_process_blocks_sha256(&sha);
+	ft_print_sha256(&sha);
+	if (newline)
+		ft_putstr_std("\n", 1);
+}
+
+int	ft_encript_file(int i, t_data *data)
+{
 	int	fd;
 
+	//printf("------------ft_encript_file [%s]----------\n", data->av[i]);
 	fd = open(data->av[i], O_RDONLY);
 	if (fd < 3)
-	{
-		ft_display_file_error(data, i);
-		return (1);
-	}
+		return (ft_display_file_error(data, i));
 	if (data->op.r)
 	{
-		ft_hash_file(data->op.q, i, data);
+		if (data->cmd.cmd_flg == 1)
+			ft_hash_file(data->op.q, i, data);
+		else
+			ft_hash_file_sha(data->op.q, i, data);
 		if (data->op.q == 0)
 			ft_display_file_prefix(i, data);
 	}
@@ -61,7 +73,10 @@ int     ft_encript_file(int i, t_data *data)
 	{
 		if (data->op.q == 0)
 			ft_display_file_prefix(i, data);
-		ft_hash_file(1, i, data);
+		if (data->cmd.cmd_flg == 1)
+			ft_hash_file(1, i, data);
+		else
+			ft_hash_file_sha(1, i, data);
 	}
 	close(fd);
 	return (0);

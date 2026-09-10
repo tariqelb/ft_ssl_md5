@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_display_file_prefix.c                           :+:      :+:    :+:   */
+/*   ft_display_hash_sha256.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/18 02:35:49 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/07 18:18:29 by tel-bouh         ###   ########.fr       */
+/*   Created: 2026/07/07 18:14:24 by tel-bouh          #+#    #+#             */
+/*   Updated: 2026/09/09 20:42:57 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ssl_md5.h"
 
-int	ft_display_file_prefix(int i, t_data *data)
+int	ft_display_hash_sha256(t_data *data)
 {
-	if (data->op.r == 0)
-	{
-		if (data->cmd.cmd_flg == 1)
-			ft_putstr_std("MD5 ", 1);
-		else
-			ft_putstr_std("SHA256 ", 1);
-		ft_putstr_std("(", 1);
-		ft_putstr_std(data->av[i], 1);
-		ft_putstr_std(") = ", 1);
-	}
-	else
-	{
-		ft_putstr_std(" ", 1);
-		ft_putstr_std(data->av[i], 1);
-		ft_putstr_std("\n", 1);
-	}
+	t_hash_sha256	sha;
+
+	if (ft_initialize_sha256_stdin(data, &sha))
+		return (0);
+	ft_process_blocks_sha256(&sha);
+	ft_print_sha256(&sha);
+	ft_putstr_std("\n", 1);
 	return (0);
 }

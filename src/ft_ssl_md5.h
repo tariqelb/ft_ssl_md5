@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:10:06 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/27 01:49:42 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/09 15:51:37 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@
 # define B_CONS 0xefcdab89
 # define C_CONS 0x98badcfe
 # define D_CONS 0x10325476
+
+# define A_CONST 0x6a09e667
+# define B_CONST 0xbb67ae85
+# define C_CONST 0x3c6ef372
+# define D_CONST 0xa54ff53a
+# define E_CONST 0x510e527f
+# define F_CONST 0x9b05688c
+# define G_CONST 0x1f83d9ab
+# define H_CONST 0x5be0cd19
+
+# define ROTR(x,n) ((x >> n) | (x << (32 - n)))
+# define SIGMA0(x) (ROTR(x,2) ^ ROTR(x,13) ^ ROTR(x,22))
+# define SIGMA1(x) (ROTR(x,6) ^ ROTR(x,11) ^ ROTR(x,25))
+# define sigma0(x) (ROTR(x,7) ^ ROTR(x,18) ^ (x >> 3))
+# define sigma1(x) (ROTR(x,17) ^ ROTR(x,19) ^ (x >> 10))
+# define Ch(x,y,z) ((x & y) ^ (~x & z))
+# define Maj(x,y,z) ((x & y) ^ (x & z) ^ (y & z))
+
 
 typedef struct s_opt
 {
@@ -67,6 +85,18 @@ typedef struct s_data
 	short	str_muted;
 }		t_data;
 
+typedef struct s_md5_blocks
+{
+	uint32_t	a;
+	uint32_t	b;
+	uint32_t	c;
+	uint32_t	d;
+	uint32_t	temp;
+	uint32_t	x;
+}		t_md5_blocks;
+
+
+typedef void	(*t_fg_func)(uint32_t *f, uint32_t *g, t_md5_blocks *blks, size_t i);
 
 typedef struct s_hash_md5
 {
@@ -86,9 +116,30 @@ typedef struct s_hash_md5
 	uint32_t	x;
 	uint32_t        k[64];
 	uint32_t        s[64];
+	t_fg_func	fg_table[4];
 }		t_hash_md5;
 
-typedef void (*t_fg_func)(uint32_t *f, uint32_t *g, uint32_t b, uint32_t c, uint32_t d, size_t i);
+
+typedef struct s_hash_sha256
+{
+	size_t		i;
+	size_t		j;
+	size_t		str_len;
+	size_t		bit_len;
+	size_t		blks_len;
+	uint8_t		**blocks;
+	uint32_t	a;
+	uint32_t	b;
+	uint32_t	c;
+	uint32_t	d;
+	uint32_t	e;
+	uint32_t	f;
+	uint32_t	g;
+	uint32_t	h;
+	uint32_t	k[64];
+}		t_hash_sha256;
+
+
 
 //File : ft_printf_utils.c
 int	ft_putstr_std(char *str, int std);
@@ -156,7 +207,8 @@ int     ft_allocate_block_memory(t_hash_md5 *md5);
 int     ft_initialize_md5_args(t_hash_md5 *md5, t_data *data, int i);
 
 //File : ft_initialize_md5_file.c
-int    ft_copy_data_to_blocks_file(t_hash_md5 *md5, t_data *data, int idx);
+int    ft_file_len(char *av);
+int	ft_copy_data_to_blocks_file(t_hash_md5 *md5, t_data *data, int idx);
 int     ft_initialize_md5_file(t_hash_md5 *md5, t_data *data, int i);
 
 //File : ft_initialize_md5_stdin.c
@@ -174,5 +226,40 @@ void    ft_print_md5(uint32_t a, uint32_t b, uint32_t c, uint32_t d);
 void    ft_init_s(uint32_t s[64]);
 void    ft_init_k(uint32_t k[64]);
 
+//File : int     ft_allocate_block_memory_sha.c
+int     ft_allocate_block_memory_sha256(t_hash_sha256 *sha);
+void    ft_add_size_to_block_sha256(t_hash_sha256 *sha);
+
+//File : ft_initialize_sha256_stdin.c
+int     ft_initialize_sha256_stdin(t_data *data, t_hash_sha256 *sha);
+
+//File : ft_display_hash256.c
+int     ft_display_hash_sha256(t_data *data);
+
+//File : ft_initialize_sha256_string.c
+int     ft_initialize_sha_string(t_data *data, t_hash_sha256 *sha, int idx);
+
+//File : ft_initialize_sha256_file.c
+int	ft_copy_data_to_blocks_file_sha(t_hash_sha256 *sha, t_data *data, int idx);
+int     ft_initialize_sha_file(t_data *data, t_hash_sha256 *sha, int idx);
+
+//File:	ft_init_k_sha256.c
+void    ft_init_k_sha256(uint32_t k[64]);
+
+//File: ft_build_message_schedule.c
+void    ft_build_w(uint32_t w[64], uint8_t *block);
+
+//File: ft_process_blocks_sha256.c
+void    ft_process_blocks_sha256(t_hash_sha256 *sha);
+
+//File: ft_print_sha256.c
+void    ft_print_sha256(t_hash_sha256 *sha);
+
+//File: ft_fg_round.c
+void	ft_fg_round1(uint32_t *f, uint32_t *g, t_md5_blocks *blks, size_t i);
+void	ft_fg_round2(uint32_t *f, uint32_t *g, t_md5_blocks *blks, size_t i);
+void	ft_fg_round3(uint32_t *f, uint32_t *g, t_md5_blocks *blks, size_t i);
+void	ft_fg_round4(uint32_t *f, uint32_t *g, t_md5_blocks *blks, size_t i);
+void	ft_init_fg_table(t_hash_md5 *md5);
 
 #endif
