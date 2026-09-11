@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 04:41:52 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/09 21:04:28 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 01:05:59 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_hash_file(int newline, int i, t_data *data)
 {
 	t_hash_md5	md5;
 
-	//malloc error
 	if (ft_initialize_md5_file(&md5, data, i))
 		return ;
 	ft_process_blocks(&md5);
@@ -38,6 +37,7 @@ void	ft_hash_file(int newline, int i, t_data *data)
 	ft_print_word(md5.d);
 	if (newline)
 		ft_putstr_std("\n", 1);
+	ft_free_md5(md5);
 }
 
 void	ft_hash_file_sha(int newline, int i, t_data *data)
@@ -50,13 +50,13 @@ void	ft_hash_file_sha(int newline, int i, t_data *data)
 	ft_print_sha256(&sha);
 	if (newline)
 		ft_putstr_std("\n", 1);
+	ft_free_sha256(sha);
 }
 
 int	ft_encript_file(int i, t_data *data)
 {
 	int	fd;
 
-	//printf("------------ft_encript_file [%s]----------\n", data->av[i]);
 	fd = open(data->av[i], O_RDONLY);
 	if (fd < 3)
 		return (ft_display_file_error(data, i));

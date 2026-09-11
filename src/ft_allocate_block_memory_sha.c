@@ -44,7 +44,7 @@ int	ft_allocate_block_memory_sha256(t_hash_sha256 *sha)
 		sha->blocks[i] = malloc(64);
 		if (!sha->blocks[i])
 		{
-			//ft_free();
+			ft_free_sha256_i(*sha, i);
 			return (1);
 		}
 		ft_bzero(sha->blocks[i], 64);

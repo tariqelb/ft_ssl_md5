@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 18:19:20 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/07 20:59:07 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 02:33:32 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,9 @@
 	while (pos < 56)
 
 */
-static void	ft_copy_data_to_blocks_sha_stdin(t_hash_sha256 *sha, t_data *data)
-{
-	size_t	pos;
-	char	*str;
 
-	str = data->args[0].str;
-	pos = 0;
-	sha->i = 0;
-	sha->j = 0;
-	while (str[sha->i])
-	{
-		sha->blocks[sha->j][pos++] = str[sha->i];
-		if (pos == 64)
-			sha->j++;
-		if (pos == 64)
-			pos = 0;
-		sha->i++;
-	}
+static void	ft_pad_blocks_sha_stdin(t_hash_sha256 *sha, size_t pos)
+{
 	sha->blocks[sha->j][pos++] = 0x80;
 	if (pos > 56)
 	{
@@ -52,9 +37,30 @@ static void	ft_copy_data_to_blocks_sha_stdin(t_hash_sha256 *sha, t_data *data)
 		sha->blocks[sha->j][pos++] = 0x00;
 }
 
+static void	ft_copy_data_to_blocks_sha_stdin(t_hash_sha256 *sha,
+		t_data *data)
+{
+	size_t	pos;
+	char	*str;
+
+	str = data->args[0].str;
+	pos = 0;
+	sha->i = 0;
+	sha->j = 0;
+	while (str[sha->i])
+	{
+		sha->blocks[sha->j][pos++] = str[sha->i++];
+		if (pos == 64)
+		{
+			sha->j++;
+			pos = 0;
+		}
+	}
+	ft_pad_blocks_sha_stdin(sha, pos);
+}
+
 int	ft_initialize_sha256_stdin(t_data *data, t_hash_sha256 *sha)
 {
-	//input
 	sha->str_len = ft_strlen(data->args[0].str);
 	sha->bit_len = sha->str_len * 8;
 	sha->blks_len = ((sha->str_len + 9 + 63) / 64);

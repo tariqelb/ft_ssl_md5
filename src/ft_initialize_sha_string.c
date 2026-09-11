@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 19:47:33 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/07 21:02:52 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 02:34:40 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	ft_copy_data_to_blocks_sha_string(t_hash_sha256 *sha,
 
 int	ft_initialize_sha_string(t_data *data, t_hash_sha256 *sha, int idx)
 {
-	//input
 	sha->str_len = ft_strlen(data->av[idx]);
 	sha->bit_len = sha->str_len * 8;
 	sha->blks_len = ((sha->str_len + 9 + 63) / 64);

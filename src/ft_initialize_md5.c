@@ -73,7 +73,7 @@ int	ft_allocate_block_memory(t_hash_md5 *md5)
 		md5->blocks[i] = malloc(64);
 		if (!md5->blocks[i])
 		{
-			//ft_free();
+			ft_free_md5_i(*md5, i);
 			return (1);
 		}
 		ft_bzero(md5->blocks[i], 64);

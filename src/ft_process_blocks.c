@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 00:46:52 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/09 15:51:57 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 02:52:59 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_fg_func g_fg_table[4] = {
 
 static uint32_t	ft_left_rotate(uint32_t x, uint32_t c)
 {
-    return (x << c) | (x >> (32 - c));
+	return ((x << c) | (x >> (32 - c)));
 }
 
 static void	ft_load_block(uint32_t M[16], uint8_t *block)
@@ -33,19 +33,26 @@ static void	ft_load_block(uint32_t M[16], uint8_t *block)
 	i = 0;
 	while (i < 16)
 	{
-		M[i] =
-			((uint32_t)block[i * 4]) |
-			((uint32_t)block[i * 4 + 1] << 8) |
-			((uint32_t)block[i * 4 + 2] << 16) |
-			((uint32_t)block[i * 4 + 3] << 24);
+		M[i] = ((uint32_t)block[i * 4])
+			| ((uint32_t)block[i * 4 + 1] << 8)
+			| ((uint32_t)block[i * 4 + 2] << 16)
+			| ((uint32_t)block[i * 4 + 3] << 24);
 		i++;
 	}
+}
+
+static void	ft_assign_result(t_hash_md5 *md5, t_md5_blocks blks)
+{
+	md5->a += blks.a;
+	md5->b += blks.b;
+	md5->c += blks.c;
+	md5->d += blks.d;
 }
 
 static void	ft_process_block(t_hash_md5 *md5, uint32_t M[16])
 {
 	t_md5_blocks	blks;
-	size_t		round;
+	size_t			round;
 
 	ft_init_fg_table(md5);
 	blks.a = md5->a;
@@ -55,9 +62,6 @@ static void	ft_process_block(t_hash_md5 *md5, uint32_t M[16])
 	md5->i = 0;
 	while (md5->i < 64)
 	{
-		//g_fg_table[round](&md5->f, &md5->g,
-		//	blks.b, blks.c, blks.d, md5->i);
-		//g_fg_table[round](&md5->f, &md5->g, &blks, md5->i);
 		round = md5->i >> 4;
 		md5->fg_table[round](&md5->f, &md5->g, &blks, md5->i);
 		md5->temp = blks.d;
@@ -70,22 +74,19 @@ static void	ft_process_block(t_hash_md5 *md5, uint32_t M[16])
 		blks.a = md5->temp;
 		md5->i++;
 	}
-	md5->a += blks.a;
-	md5->b += blks.b;
-	md5->c += blks.c;
-	md5->d += blks.d;
+	ft_assign_result(md5, blks);
 }
 
 int	ft_process_blocks(t_hash_md5 *md5)
 {
-	uint32_t	M[16];
+	uint32_t	m[16];
 	size_t		j;
 
 	j = 0;
 	while (j < md5->blks_len)
 	{
-		ft_load_block(M, md5->blocks[j]);
-		ft_process_block(md5, M);
+		ft_load_block(m, md5->blocks[j]);
+		ft_process_block(md5, m);
 		j++;
 	}
 	return (0);

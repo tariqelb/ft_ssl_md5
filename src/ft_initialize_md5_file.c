@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 01:37:58 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/07 20:42:35 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 02:28:56 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ int	ft_file_len(char *av)
 	}
 	close(fd);
 	return (size);
+}
+
+int	ft_pad_file_blocks(t_hash_md5 *md5, size_t pos)
+{
+	if (pos == 64)
+	{
+		md5->j++;
+		pos = 0;
+	}
+	md5->blocks[md5->j][pos++] = 0x80;
+	while (pos < 64)
+		md5->blocks[md5->j][pos++] = 0x00;
+	return (0);
 }
 
 int	ft_copy_data_to_blocks_file(t_hash_md5 *md5, t_data *data, int idx)
@@ -58,16 +71,8 @@ int	ft_copy_data_to_blocks_file(t_hash_md5 *md5, t_data *data, int idx)
 		rd = read(fd, &c, 1);
 		md5->i++;
 	}
-	if (pos == 64)
-	{
-		md5->j++;
-		pos = 0;
-	}
-	md5->blocks[md5->j][pos++] = 0x80;
-	while (pos < 64)
-		md5->blocks[md5->j][pos++] = 0x00;
 	close(fd);
-	return (0);
+	return (ft_pad_file_blocks(md5, pos));
 }
 
 int	ft_initialize_md5_file(t_hash_md5 *md5, t_data *data, int i)

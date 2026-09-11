@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:10:06 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/09 15:51:37 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 02:45:22 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,6 @@ void	ft_initialize_data(t_data *data, int ac, char **av);
 //File : ft_parse_commad_errors.c
 int     ft_parse_command_errors(int ac, char **av, t_data *data);
 
-//File : ft_read_stdin.c
-int     ft_read_stdin(t_data *data);
 
 //File : ft_parse_and_get_option.c
 int     ft_parse_and_get_option(int ac, char **av, t_data *data);
@@ -261,5 +259,24 @@ void	ft_fg_round2(uint32_t *f, uint32_t *g, t_md5_blocks *blks, size_t i);
 void	ft_fg_round3(uint32_t *f, uint32_t *g, t_md5_blocks *blks, size_t i);
 void	ft_fg_round4(uint32_t *f, uint32_t *g, t_md5_blocks *blks, size_t i);
 void	ft_init_fg_table(t_hash_md5 *md5);
+
+
+//File: ft_free_md5.c
+void    ft_free_md5_i(t_hash_md5 md5, int i);
+void    ft_free_md5(t_hash_md5 md5);
+void    ft_free_sha256_i(t_hash_sha256 sha, int i);
+void    ft_free_sha256(t_hash_sha256 sha);
+void    ft_free_data_stdin(t_data data);
+
+
+//File : ft_read_stdin.c
+int     ft_handle_read_loop(t_data *data, int rd, char *temp, int *malloc_err);
+int     ft_read_stdin(t_data *data);
+
+//File: ft_read_stdin_utils.c
+int     ft_init_stdin_arg(t_data *data, int rd, int *malloc_err);
+int     ft_fill_stdin_arg(t_data *data, int rd, char *temp);
+int     ft_allocate_for_stdin_arg(t_data *data, int rd, char *temp, int *malloc_err);
+int     ft_is_empty_stdin(char *str, int rd);
 
 #endif

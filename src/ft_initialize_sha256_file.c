@@ -6,11 +6,24 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 00:56:00 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/07 20:46:53 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 02:30:48 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ssl_md5.h"
+
+int	ft_pad_file_blocks_sha(t_hash_sha256 *sha, size_t pos)
+{
+	if (pos == 64)
+	{
+		sha->j++;
+		pos = 0;
+	}
+	sha->blocks[sha->j][pos++] = 0x80;
+	while (pos < 64)
+		sha->blocks[sha->j][pos++] = 0x00;
+	return (0);
+}
 
 int	ft_copy_data_to_blocks_file_sha(t_hash_sha256 *sha, t_data *data, int idx)
 {
@@ -37,16 +50,8 @@ int	ft_copy_data_to_blocks_file_sha(t_hash_sha256 *sha, t_data *data, int idx)
 		rd = read(fd, &c, 1);
 		sha->i++;
 	}
-	if (pos == 64)
-	{
-		sha->j++;
-		pos = 0;
-	}
-	sha->blocks[sha->j][pos++] = 0x80;
-	while (pos < 64)
-		sha->blocks[sha->j][pos++] = 0x00;
 	close(fd);
-	return (0);
+	return (ft_pad_file_blocks_sha(sha, pos));
 }
 
 int	ft_initialize_sha_file(t_data *data, t_hash_sha256 *sha, int idx)

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 00:32:56 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/08 02:53:37 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 01:49:33 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_display_hash(t_data *data)
 {
 	t_hash_md5	md5;
 
-	//malloc error
 	if (ft_initialize_md5_stdin(&md5, data))
 		return ;
 	ft_process_blocks(&md5);
@@ -24,14 +23,12 @@ void	ft_display_hash(t_data *data)
 	ft_print_word(md5.b);
 	ft_print_word(md5.c);
 	ft_print_word(md5.d);
-	//if (data->op.r == 0)
 	ft_putstr_std("\n", 1);
+	ft_free_md5(md5);
 }
 
 void	ft_execute_stdin(t_data *data)
 {
-	//printf("-----------ft_execute_stdin------------------\n");
-	//if (data->op.r == 0)
 	ft_display_prefix(data);
 	if (data->cmd.cmd_flg == 1)
 		ft_display_hash(data);
@@ -41,7 +38,6 @@ void	ft_execute_stdin(t_data *data)
 
 int	ft_parse_arg_and_exec(int i, t_data *data)
 {
-	//printf("bef :opt(%s) i{%d} rndm: [%d] str_muted(%d) s_flag{%d}\n", data->av[i], i, RANDOM, data->str_muted, data->s_flag_on);
 	if (RANDOM && ft_is_one_global_option(i, data))
 		return (0);
 	else if (RANDOM == 0 && ft_is_one_global_option(i, data)
@@ -64,7 +60,6 @@ int	ft_parse_arg_and_exec(int i, t_data *data)
 		ft_encript_string(i, data);
 	else
 		ft_encript_file(i, data);
-	//printf("opt (%s) i {%d} random : [%d] str_muted (%d) s_flag {%d}\n", data->av[i], i, RANDOM, data->str_muted, data->s_flag_on);
 	return (0);
 }
 
@@ -72,7 +67,6 @@ int	ft_execute_args(t_data *data)
 {
 	int	i;
 
-	//printf("ft_execute_args\n");
 	i = 2;
 	if (data->args && data->args[0].type == 0)
 		ft_execute_stdin(data);

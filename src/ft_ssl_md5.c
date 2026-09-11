@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:13:12 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/08 03:04:54 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 02:54:26 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int	main(int ac, char **av)
 		&& ft_read_stdin(&data))
 		return (0);
 	ft_execute_args(&data);
-	//ft_display_struct(&data);
+	ft_free_data_stdin(data);
 	return (0);
 }
+/*
+	//ft_display_struct(&data);
+*/

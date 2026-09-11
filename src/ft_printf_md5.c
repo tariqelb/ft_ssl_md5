@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 02:16:12 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/08 02:52:29 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/11 02:35:05 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_print_md5(uint32_t a, uint32_t b, uint32_t c, uint32_t d)
 
 static void	ft_putchar_hex(uint8_t byte)
 {
-	char *hex;
-	char out[2];
+	char	*hex;
+	char	out[2];
 
 	hex = "0123456789abcdef";
 	out[0] = hex[(byte >> 4) & 0xF];

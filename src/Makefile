@@ -6,7 +6,7 @@
 #    By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/12 22:54:33 by tel-bouh          #+#    #+#              #
-#    Updated: 2026/09/09 15:13:04 by tel-bouh         ###   ########.fr        #
+#    Updated: 2026/09/11 02:45:50 by tel-bouh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,11 @@ SRCS=	./ft_parse_command_errors.c \
 	./ft_utils_one.c \
 	./ft_utils_two.c \
 	./ft_read_stdin.c \
+	./ft_read_stdin_utils.c \
 	./ft_parse_and_get_option.c \
 	./ft_execute_args.c \
 	./ft_fg_round.c \
+	./ft_free_md5.c \
 	./ft_display_prefix.c \
 	./ft_option_str_flag.c \
 	./ft_enrypt_string.c \
