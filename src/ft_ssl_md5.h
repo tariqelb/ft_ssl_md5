@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:10:06 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/12 01:56:51 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/12 20:04:20 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # define C_CONS 0x98badcfe
 # define D_CONS 0x10325476
 
-# define A_CONST 0x6a09e667
-# define B_CONST 0xbb67ae85
-# define C_CONST 0x3c6ef372
-# define D_CONST 0xa54ff53a
-# define E_CONST 0x510e527f
-# define F_CONST 0x9b05688c
-# define G_CONST 0x1f83d9ab
-# define H_CONST 0x5be0cd19
+# define A_CONST 1779033703
+# define B_CONST 3144134277
+# define C_CONST 1013904242
+# define D_CONST 2773480762
+# define E_CONST 1359893119
+# define F_CONST 2600822924
+# define G_CONST 528734635
+# define H_CONST 1541459225
 
 typedef struct s_opt
 {
