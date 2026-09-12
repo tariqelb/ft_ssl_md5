@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_build_message_shedule.c                         :+:      :+:    :+:   */
+/*   ft_sha256_process_two.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/09 18:25:30 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/12 01:53:40 by tel-bouh         ###   ########.fr       */
+/*   Created: 2026/09/12 01:47:36 by tel-bouh          #+#    #+#             */
+/*   Updated: 2026/09/12 01:48:13 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ssl_md5.h"
 
-void	ft_build_w(uint32_t w[64], uint8_t *block)
+uint32_t	ft_ch(uint32_t x, uint32_t y, uint32_t z)
 {
-	int	i;
+	return ((x & y) ^ (~x & z));
+}
 
-	i = 0;
-	while (i < 16)
-	{
-		w[i] = ((uint32_t)block[i * 4] << 24)
-			| ((uint32_t)block[i * 4 + 1] << 16)
-			| ((uint32_t)block[i * 4 + 2] << 8)
-			| ((uint32_t)block[i * 4 + 3]);
-		i++;
-	}
-	while (i < 64)
-	{
-		w[i] = ft_sigma_small1(w[i - 2])
-			+ w[i - 7]
-			+ ft_sigma_small0(w[i - 15])
-			+ w[i - 16];
-		i++;
-	}
+uint32_t	ft_maj(uint32_t x, uint32_t y, uint32_t z)
+{
+	return ((x & y) ^ (x & z) ^ (y & z));
 }

@@ -6,7 +6,7 @@
 #    By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/12 22:54:33 by tel-bouh          #+#    #+#              #
-#    Updated: 2026/09/11 02:45:50 by tel-bouh         ###   ########.fr        #
+#    Updated: 2026/09/12 01:50:22 by tel-bouh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ SRCS=	./ft_parse_command_errors.c \
 	./ft_build_message_shedule.c \
 	./ft_process_blocks_sha256.c \
 	./ft_print_sha256.c \
+	./ft_sha256_process_one.c \
+	./ft_sha256_process_two.c \
 	./ft_ssl_md5.c
 
 FLAGS= -Werror -Wextra -Wall
