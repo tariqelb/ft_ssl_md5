@@ -6,7 +6,7 @@
 #    By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/12 22:54:33 by tel-bouh          #+#    #+#              #
-#    Updated: 2026/09/12 01:50:22 by tel-bouh         ###   ########.fr        #
+#    Updated: 2026/09/15 15:12:18 by tariq            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,24 @@ SRCS=	./ft_parse_command_errors.c \
 	./ft_sha256_process_two.c \
 	./ft_ssl_md5.c
 
-FLAGS= -Werror -Wextra -Wall
+OBJS = $(SRCS:.c=.o)
 
-all:
-	gcc $(FLAGS) -o ${NAME} ${SRCS} -lm
+CC = gcc
 
-fclean:
-	/bin/rm -rf ${NAME}
+CFLAGS = -Wall -Wextra -Werror
+
+all: $(NAME) #clean
+
+$(NAME): $(OBJS)
+	$(CC) -o $(NAME) -I . $(OBJS) -lm
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all

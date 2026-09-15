@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 00:32:56 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/11 01:49:33 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/15 18:58:16 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	ft_display_hash(t_data *data)
 void	ft_execute_stdin(t_data *data)
 {
 	ft_display_prefix(data);
-	if (data->cmd.cmd_flg == 1)
-		ft_display_hash(data);
-	else
-		ft_display_hash_sha256(data);
+	data->std[data->cmd.cmd_flg - 1](data);
 }
 
 int	ft_parse_arg_and_exec(int i, t_data *data)

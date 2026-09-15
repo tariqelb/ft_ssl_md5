@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:10:06 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/12 20:04:20 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/15 19:06:24 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,28 @@ typedef struct s_args
 	char	*prefix_str;
 }			t_args;
 
+typedef struct s_data	t_data;
+
+typedef void			(*t_hash_fun_std)(t_data *data);
+typedef void			(*t_hash_fun_str)(int flag, int i, t_data *data);
+typedef void			(*t_hash_fun_file)(int flag, int i, t_data *data);
+
 typedef struct s_data
 {
-	t_opt	op;
-	t_cmd	cmd;
-	t_args	*args;
-	int		i;
-	int		j;
-	int		ac;
-	char	**av;
-	int		n_args;
-	short	s_flag_on;
-	short	str_muted;
-}			t_data;
+	t_opt			op;
+	t_cmd			cmd;
+	t_args			*args;
+	int				i;
+	int				j;
+	int				ac;
+	char			**av;
+	int				n_args;
+	short			s_flag_on;
+	short			str_muted;
+	t_hash_fun_std	std[2];
+	t_hash_fun_str	str[2];
+	t_hash_fun_file	file[2];
+}					t_data;
 
 typedef struct s_sha256_blocks
 {
@@ -99,7 +108,7 @@ typedef struct s_md5_blocks
 	uint32_t	x;
 }			t_md5_blocks;
 
-typedef void	(*t_fg_func)(uint32_t *f, uint32_t *g,
+typedef void			(*t_fg_func)(uint32_t *f, uint32_t *g,
 				t_md5_blocks *blks, size_t i);
 
 typedef struct s_hash_md5
@@ -179,11 +188,15 @@ void		ft_display_hash(t_data *data);
 int			ft_execute_args(t_data *data);
 
 /* File : ft_encrypt_string.c */
+void		ft_hash_str(int newline, int i, t_data *data);
+void		ft_hash_str_sha(int newline, int i, t_data *data);
 int			ft_display_string_error(t_data *data, int i);
 int			ft_check_isit_followed_by_string(t_data *data, int i);
 int			ft_encript_string(int i, t_data *data);
 
 /* File : ft_encrypt_file.c */
+void		ft_hash_file(int newline, int i, t_data *data);
+void		ft_hash_file_sha(int newline, int i, t_data *data);
 int			ft_display_file_error(t_data *data, int i);
 int			ft_encript_file(int i, t_data *data);
 
@@ -230,7 +243,7 @@ void		ft_add_size_to_block_sha256(t_hash_sha256 *sha);
 int			ft_initialize_sha256_stdin(t_data *data, t_hash_sha256 *sha);
 
 /* File : ft_display_hash256.c */
-int			ft_display_hash_sha256(t_data *data);
+void		ft_display_hash_sha256(t_data *data);
 
 /* File : ft_initialize_sha256_string.c */
 int			ft_initialize_sha_string(t_data *data, t_hash_sha256 *sha, int idx);

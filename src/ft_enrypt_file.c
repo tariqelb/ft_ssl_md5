@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 04:41:52 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/11 01:05:59 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/15 18:56:12 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ int	ft_encript_file(int i, t_data *data)
 		return (ft_display_file_error(data, i));
 	if (data->op.r)
 	{
-		if (data->cmd.cmd_flg == 1)
-			ft_hash_file(data->op.q, i, data);
-		else
-			ft_hash_file_sha(data->op.q, i, data);
+		data->file[data->cmd.cmd_flg - 1](data->op.q, i, data);
 		if (data->op.q == 0)
 			ft_display_file_prefix(i, data);
 	}
@@ -73,10 +70,7 @@ int	ft_encript_file(int i, t_data *data)
 	{
 		if (data->op.q == 0)
 			ft_display_file_prefix(i, data);
-		if (data->cmd.cmd_flg == 1)
-			ft_hash_file(1, i, data);
-		else
-			ft_hash_file_sha(1, i, data);
+		data->file[data->cmd.cmd_flg - 1](1, i, data);
 	}
 	close(fd);
 	return (0);

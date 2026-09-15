@@ -6,11 +6,21 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 22:13:12 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/09/11 02:54:26 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/09/15 16:06:51 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ssl_md5.h"
+
+void	ft_init_commands_func(t_data *data)
+{
+	data->std[0] = ft_display_hash;
+	data->std[1] = ft_display_hash_sha256;
+	data->str[0] = ft_hash_str;
+	data->str[1] = ft_hash_str_sha;
+	data->file[0] = ft_hash_file;
+	data->file[1] = ft_hash_file_sha;
+}
 
 void	ft_initialize_data(t_data *data, int ac, char **av)
 {
@@ -27,6 +37,7 @@ void	ft_initialize_data(t_data *data, int ac, char **av)
 	data->ac = ac;
 	ft_strcpy(data->cmd.md5, "md5");
 	ft_strcpy(data->cmd.sha256, "sha256");
+	ft_init_commands_func(data);
 }
 
 void	ft_display_struct(t_data *data)
